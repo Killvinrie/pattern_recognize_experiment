@@ -1,12 +1,14 @@
 import pandas as pd
 import numpy as np
 from scipy.spatial.distance import cdist
+import matplotlib.pyplot as plt
 
 # 1. 加载数据集
 def load_data(file_path):
     """加载并返回数据集"""
     data = pd.read_csv(file_path)
     return data.values  # 将数据转换为 numpy 数组
+
 
 # 2. 实现 K-Means 聚类算法
 class KMeans:
@@ -46,9 +48,6 @@ class KMeans:
         self.centroids = centroids
         self.labels = labels
         return self
-import matplotlib.pyplot as plt
-
-import matplotlib.pyplot as plt
 
 # 1. 展示标签为 1 的 200 幅图像
 def display_images_by_label(X, labels, target_label=1, num_images=200):
@@ -58,7 +57,7 @@ def display_images_by_label(X, labels, target_label=1, num_images=200):
     
     # 设置网格大小 (20行 x 10列)
     rows, cols = 20, 10
-    fig, axes = plt.subplots(rows, cols, figsize=(15, 30))  # 设定图片大小
+    fig, axes = plt.subplots(rows, cols, figsize=(8, 15))  # 设定图片大小
     
     for i in range(rows):
         for j in range(cols):
@@ -75,11 +74,14 @@ if __name__ == "__main__":
     X = load_data(file_path)
     
     # 初始化 KMeans 模型并进行聚类
+    np.random.seed(42)
     kmeans = KMeans(k=10, max_iters=100)
     kmeans.fit(X)
-    
+     
     # 打印前 10 个样本的聚类标签
     print("Cluster assignments for first 10 samples:", kmeans.labels[:10])
     
     # 展示标签为 1 的 200 幅图像
     display_images_by_label(X, kmeans.labels, target_label=1, num_images=200)
+    display_images_by_label(X, kmeans.labels, target_label=2, num_images=200)
+    display_images_by_label(X, kmeans.labels, target_label=3, num_images=200)
